@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main Task controller.
+ */
 @RestController
 @RequestMapping("/v1/task")
 public class TaskController {
@@ -24,7 +27,7 @@ public class TaskController {
   }
 
   @DeleteMapping(value = "deleteTask/{taskId}")
-  public ResponseEntity<Void> deleteTask(@PathVariable String taskId) {
+  public ResponseEntity<Void> deleteTask(@PathVariable final String taskId) {
     return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
   }
 
@@ -34,7 +37,7 @@ public class TaskController {
         new TaskDto((long) 1, "Test updated title", "test_updated_content"), HttpStatus.OK);
   }
 
-  @PostMapping(value = "createTask}")
+  @PostMapping(value = "createTask")
   public ResponseEntity<Void> createTask(@RequestBody final TaskDto taskDto) {
     return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
   }
