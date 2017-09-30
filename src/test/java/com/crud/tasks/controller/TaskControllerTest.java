@@ -34,7 +34,7 @@ public class TaskControllerTest {
   @Test
   public void getTaskTest() throws Exception {
     mockMvc.perform(
-        get("/v1/task/getTasks"))
+        get("/v1/tasks/"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("[]")));
@@ -43,7 +43,7 @@ public class TaskControllerTest {
   @Test
   public void getTheTaskTest() throws Exception {
     mockMvc.perform(
-        get("/v1/task/getTask/1"))
+        get("/v1/tasks/1"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content()
@@ -53,13 +53,13 @@ public class TaskControllerTest {
   @Test
   public void deleteTaskTest() throws Exception {
     mockMvc.perform(
-        delete("/v1/task/deleteTask/1"))
+        delete("/v1/tasks/1"))
         .andDo(print()).andExpect(status().isAccepted());
   }
 
   @Test
   public void updateTaskTest() throws Exception {
-    mockMvc.perform(put("/v1/task/updateTask")
+    mockMvc.perform(put("/v1/tasks/2")
         .contentType(TestUtil.APPLICATION_JSON_UTF8)
         .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 2, "", ""))))
         .andDo(print())
@@ -70,7 +70,7 @@ public class TaskControllerTest {
   @Test
   public void createTaskTest() throws Exception {
     mockMvc.perform(
-        post("/v1/task/createTask")
+        post("/v1/tasks/")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 1, "", ""))))
         .andDo(print())
@@ -87,5 +87,4 @@ public class TaskControllerTest {
       return mapper.writeValueAsBytes(object);
     }
   }
-
 }
