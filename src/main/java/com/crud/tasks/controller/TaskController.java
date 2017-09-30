@@ -12,7 +12,7 @@ import java.util.List;
  * Main Task controller.
  */
 @RestController
-@RequestMapping("/v1/tasks/")
+@RequestMapping("/v1/tasks")
 public class TaskController {
 
   @GetMapping
