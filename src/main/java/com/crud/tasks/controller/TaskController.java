@@ -16,29 +16,25 @@ import java.util.List;
 public class TaskController {
 
   @GetMapping
-  public ResponseEntity<List<TaskDto>> getTasks() {
-    return new ResponseEntity<List<TaskDto>>(new ArrayList<TaskDto>(), HttpStatus.OK);
+  public List<TaskDto> getTasks() {
+    return new ArrayList<TaskDto>();
   }
 
   @GetMapping(value = "{taskId}")
-  public ResponseEntity<TaskDto> getTask(@PathVariable final String taskId) {
-    return new ResponseEntity<TaskDto>(
-        new TaskDto(Long.parseLong(taskId), "Test title", "test_content"), HttpStatus.OK);
+  public TaskDto getTask(@PathVariable final String taskId) {
+    return new TaskDto(Long.parseLong(taskId), "Test title", "test_content");
   }
 
   @DeleteMapping(value = "{taskId}")
-  public ResponseEntity<Void> deleteTask(@PathVariable final String taskId) {
-    return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+  public void deleteTask(@PathVariable final String taskId) {
   }
 
   @PutMapping(value = "{taskId}")
-  public ResponseEntity<TaskDto> updateTask(@RequestBody final TaskDto taskDto,@PathVariable String taskId) {
-    return new ResponseEntity<TaskDto>(
-        new TaskDto(Long.parseLong(taskId), "Test updated title", "test_updated_content"), HttpStatus.OK);
+  public TaskDto updateTask(@RequestBody final TaskDto taskDto, @PathVariable final String taskId) {
+    return new TaskDto(Long.parseLong(taskId), "Test updated title", "test_updated_content");
   }
 
   @PostMapping
-  public ResponseEntity<Void> createTask(@RequestBody final TaskDto taskDto) {
-    return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+  public void createTask(@RequestBody final TaskDto taskDto) {
   }
 }

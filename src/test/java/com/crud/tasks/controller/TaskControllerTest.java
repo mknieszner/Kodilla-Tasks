@@ -54,7 +54,7 @@ public class TaskControllerTest {
   public void deleteTaskTest() throws Exception {
     mockMvc.perform(
         delete("/v1/tasks/1"))
-        .andDo(print()).andExpect(status().isAccepted());
+        .andDo(print()).andExpect(status().isOk());
   }
 
   @Test
@@ -74,7 +74,7 @@ public class TaskControllerTest {
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 1, "", ""))))
         .andDo(print())
-        .andExpect(status().isAccepted());
+        .andExpect(status().isOk());
   }
 
   private static class TestUtil {
