@@ -7,22 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Database service.
  */
 @Service
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DbService {
 
-  @Autowired
-  private TaskRepository taskRepository;
+  private final TaskRepository taskRepository;
 
   public List<Task> getAllTask() {
     return taskRepository.findAll();
   }
 
-  public Task findById(final long id) {
-    return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(Long.toString(id)));
+  public Optional<Task> findById(final long id) {
+    return taskRepository.findById(id);
+  }
+
+  public Task saveTask(final Task task) {
+    return taskRepository.save(task);
+  }
+
+  public void deleteTask(final long taskId) {
+    taskRepository.deleteById(taskId);
   }
 }

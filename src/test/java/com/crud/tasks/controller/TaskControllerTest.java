@@ -4,6 +4,8 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.service.TaskNotFoundException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,24 +44,17 @@ public class TaskControllerTest {
         get("/v1/tasks/"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString("[{\"id\":1,\"title\":\"test\",\"content\":\"test1\"}]")));
+        .andExpect(content().string(containsString("\"title\":\"\",\"content\":\"\"}")));
   }
 
   @Test
   public void getTaskTest() throws Exception {
     mockMvc.perform(
-        get("/v1/tasks/1"))
+        get("/v1/tasks/2"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content()
-            .string(containsString("{\"id\":1,\"title\":\"test\",\"content\":\"test1\"}")));
-  }
-
-  @Test
-  public void deleteTaskTest() throws Exception {
-    mockMvc.perform(
-        delete("/v1/tasks/1"))
-        .andDo(print()).andExpect(status().isOk());
+            .string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}")));
   }
 
   @Test
@@ -68,16 +63,24 @@ public class TaskControllerTest {
         .contentType(TestUtil.APPLICATION_JSON_UTF8)
         .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 2, "", ""))))
         .andDo(print())
-        .andExpect(content().string(containsString("{\"id\":2,\"title\":\"Test updated title\",\"content\":\"test_updated_content\"}")))
+        .andExpect(content().string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}")))
         .andExpect(status().isOk());
   }
+
+//  @Test
+//  public void deleteTaskTest() throws Exception {
+//    mockMvc.perform(
+//        delete("/v1/tasks/7"))
+//        .andDo(print())
+//        .andExpect(status().isOk());
+//  }
 
   @Test
   public void createTaskTest() throws Exception {
     mockMvc.perform(
         post("/v1/tasks/")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 1, "", ""))))
+            .content(TestUtil.convertObjectToJsonBytes(new TaskDto(null, "", ""))))
         .andDo(print())
         .andExpect(status().isOk());
   }
