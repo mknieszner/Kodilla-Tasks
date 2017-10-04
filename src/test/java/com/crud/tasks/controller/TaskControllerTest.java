@@ -1,15 +1,19 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.service.TaskNotFoundException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 
 import java.io.IOException;
@@ -25,29 +29,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@SpringBootTest
+@AutoConfigureMockMvc
 public class TaskControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
-  public void getTaskTest() throws Exception {
+  public void getTasksTest() throws Exception {
     mockMvc.perform(
         get("/v1/tasks/"))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString("[]")));
+        .andExpect(content().string(containsString("[{\"id\":1,\"title\":\"test\",\"content\":\"test1\"}]")));
   }
 
   @Test
-  public void getTheTaskTest() throws Exception {
+  public void getTaskTest() throws Exception {
     mockMvc.perform(
         get("/v1/tasks/1"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content()
-            .string(containsString("{\"id\":1,\"title\":\"Test title\",\"content\":\"test_content\"}")));
+            .string(containsString("{\"id\":1,\"title\":\"test\",\"content\":\"test1\"}")));
   }
 
   @Test
@@ -75,6 +80,13 @@ public class TaskControllerTest {
             .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 1, "", ""))))
         .andDo(print())
         .andExpect(status().isOk());
+  }
+
+  @Test(expected = NestedServletException.class)
+  public void taskNotFoundExceptionTest() throws Exception {
+    mockMvc.perform(get("/v1/tasks/-1"));
+
+    // Exception should be thrown
   }
 
   private static class TestUtil {
