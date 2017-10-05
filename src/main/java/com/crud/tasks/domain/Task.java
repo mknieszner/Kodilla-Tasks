@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-//import lombok.Getter;
 
 /**
  * Represents task.

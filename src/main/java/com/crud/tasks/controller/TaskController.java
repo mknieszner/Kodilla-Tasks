@@ -31,13 +31,13 @@ public class TaskController {
   }
 
   @GetMapping("{taskId}")
-  public TaskDto getTask(@PathVariable final String taskId) {
-    return taskMapper.mapToTaskDto(dbService.findById(Long.parseLong(taskId)).orElseThrow(() -> new TaskNotFoundException(Long.parseLong(taskId))));
+  public TaskDto getTask(@PathVariable final Long taskId) {
+    return taskMapper.mapToTaskDto(dbService.findById(taskId));
   }
 
   @DeleteMapping("{taskId}")
-  public void deleteTask(@PathVariable final String taskId) {
-    dbService.deleteTask(Long.parseLong(taskId));
+  public void deleteTask(@PathVariable final Long taskId) {
+    dbService.deleteTask(taskId);
   }
 
   @PutMapping("{taskId}")

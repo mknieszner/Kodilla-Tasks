@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.util.NestedServletException;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.sql.*;
+import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -62,18 +65,23 @@ public class TaskControllerTest {
     mockMvc.perform(put("/v1/tasks/2")
         .contentType(TestUtil.APPLICATION_JSON_UTF8)
         .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 2, "", ""))))
-        .andDo(print())
-        .andExpect(content().string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}")))
-        .andExpect(status().isOk());
+        .andDo(print()).andExpect(content().string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}"))).andExpect(status().isOk());
   }
 
-//  @Test
-//  public void deleteTaskTest() throws Exception {
-//    mockMvc.perform(
-//        delete("/v1/tasks/7"))
-//        .andDo(print())
-//        .andExpect(status().isOk());
-//  }
+  @Test
+  public void deleteTaskTest() throws Exception {
+    //Given
+    final String sqlQuery = "INSERT INTO tasks(id,name,description) "
+        + "VALUES (1,'to delete','to delete description');";
+    try (Statement statement = DbManager.INSTANCE.getConnection().createStatement()) {
+      statement.executeUpdate(sqlQuery);
+    }
+
+    //When Then
+    mockMvc.perform(delete("/v1/tasks/1"))
+        .andDo(print())
+        .andExpect(status().isOk());
+  }
 
   @Test
   public void createTaskTest() throws Exception {
@@ -100,6 +108,27 @@ public class TaskControllerTest {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
       return mapper.writeValueAsBytes(object);
+    }
+  }
+
+  private enum DbManager {
+    INSTANCE;
+    private Connection conn;
+
+    DbManager() {
+      final Properties connectionProps = new Properties();
+      connectionProps.put("user", "task_crud_admin");
+      connectionProps.put("password", "task_crud_password");
+      try {
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/task_crud?serverTimezone=Europe/Warsaw"
+            + "&useSSL=False", connectionProps);
+      } catch (SQLException e) {
+        throw new RuntimeException("SQLException" + e.toString());
+      }
+    }
+
+    public Connection getConnection() {
+      return conn;
     }
   }
 }

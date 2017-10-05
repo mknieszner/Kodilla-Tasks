@@ -19,11 +19,11 @@ public class DbService {
   private final TaskRepository taskRepository;
 
   public List<Task> getAllTask() {
-    return taskRepository.findAll();
+    return (List<Task>) taskRepository.findAll();
   }
 
-  public Optional<Task> findById(final long id) {
-    return taskRepository.findById(id);
+  public Task findById(final long id) {
+    return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
   }
 
   public Task saveTask(final Task task) {
