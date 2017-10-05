@@ -32,7 +32,7 @@ public class TaskController {
 
   @GetMapping("{taskId}")
   public TaskDto getTask(@PathVariable final String taskId) {
-    return taskMapper.mapToTaskDto(dbService.findById(Long.parseLong(taskId)).orElseThrow(() -> new TaskNotFoundException(taskId)));
+    return taskMapper.mapToTaskDto(dbService.findById(Long.parseLong(taskId)).orElseThrow(() -> new TaskNotFoundException(Long.parseLong(taskId))));
   }
 
   @DeleteMapping("{taskId}")
