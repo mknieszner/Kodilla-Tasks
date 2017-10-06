@@ -1,6 +1,8 @@
 package com.crud.tasks.controller;
 
+import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.service.TaskNotFoundException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.util.NestedServletException;
 
 
@@ -37,6 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TaskControllerTest {
+
+  @Autowired
+  TaskRepository taskRepository;
 
   @Autowired
   private MockMvc mockMvc;
@@ -71,14 +77,11 @@ public class TaskControllerTest {
   @Test
   public void deleteTaskTest() throws Exception {
     //Given
-    final String sqlQuery = "INSERT INTO tasks(id,name,description) "
-        + "VALUES (1,'to delete','to delete description');";
-    try (Statement statement = DbManager.INSTANCE.getConnection().createStatement()) {
-      statement.executeUpdate(sqlQuery);
-    }
+    final Task toDeleteTask = taskRepository.save(new Task(null, "", ""));
 
     //When Then
-    mockMvc.perform(delete("/v1/tasks/1"))
+    mockMvc.perform(
+        delete("/v1/tasks/" + toDeleteTask.getId()))
         .andDo(print())
         .andExpect(status().isOk());
   }
@@ -108,27 +111,6 @@ public class TaskControllerTest {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
       return mapper.writeValueAsBytes(object);
-    }
-  }
-
-  private enum DbManager {
-    INSTANCE;
-    private Connection conn;
-
-    DbManager() {
-      final Properties connectionProps = new Properties();
-      connectionProps.put("user", "task_crud_admin");
-      connectionProps.put("password", "task_crud_password");
-      try {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/task_crud?serverTimezone=Europe/Warsaw"
-            + "&useSSL=False", connectionProps);
-      } catch (SQLException e) {
-        throw new RuntimeException("SQLException" + e.toString());
-      }
-    }
-
-    public Connection getConnection() {
-      return conn;
     }
   }
 }
