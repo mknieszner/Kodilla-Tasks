@@ -17,11 +17,11 @@ public class Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public Long id;
 
   @Column(name = "name")
-  private String title;
+  public String title;
 
   @Column(name = "description")
-  private String content;
+  public String content;
 }

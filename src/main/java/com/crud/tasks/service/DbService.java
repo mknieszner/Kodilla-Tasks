@@ -13,10 +13,10 @@ import java.util.Optional;
  * Database service.
  */
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DbService {
 
-  private final TaskRepository taskRepository;
+  @Autowired
+  private TaskRepository taskRepository;
 
   public List<Task> getAllTask() {
     return (List<Task>) taskRepository.findAll();
