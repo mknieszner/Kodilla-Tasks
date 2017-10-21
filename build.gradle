@@ -45,7 +45,7 @@ allprojects {
         compile 'com.google.code.findbugs:findbugs:3.0.1'
 
         //compile('mysql:mysql-connector-java')
-        compile('org.postgresql:postgresql')
+        compile('org.postgresql:postgresql:9.4-1201-jdbc4')
 
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile "org.mockito:mockito-core:2.10.0"
