@@ -9,19 +9,20 @@ import javax.persistence.*;
 /**
  * Represents task.
  */
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tasks")
+@Table(name = "TASKS")
 public class Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Long id;
+  private Long id;
 
-  @Column(name = "name")
-  public String title;
+  @Column(name = "NAME")
+  private String title;
 
-  @Column(name = "description")
-  public String content;
+  @Column(name = "DESCRIPTION")
+  private String content;
 }

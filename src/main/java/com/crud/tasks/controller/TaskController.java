@@ -41,7 +41,7 @@ public class TaskController {
     dbService.deleteTask(taskId);
   }
 
-  @PutMapping("{taskId}")
+  @PutMapping(value = "{taskId}", consumes = APPLICATION_JSON_VALUE)
   public TaskDto updateTask(@RequestBody final TaskDto taskDto) {
     return taskMapper.mapToTaskDto(dbService.saveTask(taskMapper.mapToTask(taskDto)));
   }
