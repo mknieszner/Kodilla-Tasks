@@ -18,6 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 /**
  * Main Task controller.
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/tasks")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
