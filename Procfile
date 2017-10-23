@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS java -Dspring.profiles.active="heroku" - jar tasks-0.0.1-SNAPSHOT.jar
