@@ -8,7 +8,11 @@ goto fail
 start http://localhost:8080/crud/v1/tasks
 if "%ERRORLEVEL%" == "0" goto end
 echo There were errors with browser.
-goto end
+goto fail
+
+:fail
+echo.
+echo There were errors.
 
 :end
 echo.
