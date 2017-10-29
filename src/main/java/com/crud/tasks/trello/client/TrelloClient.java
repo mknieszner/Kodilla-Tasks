@@ -14,10 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * TrelloClient.
@@ -35,7 +34,7 @@ public class TrelloClient {
 
   public List<TrelloBoardDto> getTrelloBoards() {
     try {
-      return Arrays.asList(Optional.ofNullable(restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class)).orElse(new TrelloBoardDto[0]));
+      return ofNullable(restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class)).map(Arrays::asList).orElseGet(Collections::emptyList);
     } catch (RestClientException e) {
       LOGGER.error(e.getMessage(), e);
           return new ArrayList<>();
