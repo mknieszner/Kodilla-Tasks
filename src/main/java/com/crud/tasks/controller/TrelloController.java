@@ -20,7 +20,7 @@ public class TrelloController {
   private TrelloClient trelloClient;
 
   @GetMapping("boardsHeaders")//Zadanie 18.2
-  public void getTrelloBoardsHeaders() {
+  public void printTrelloBoardsHeaders() {
     trelloClient
         .getTrelloBoards()
         .stream()
@@ -29,15 +29,8 @@ public class TrelloController {
   }//koniec 18.2
 
   @GetMapping("boards")
-  public void getTrelloBoards() {
-    final List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
-
-    trelloBoards.forEach(trelloBoardDto -> {
-      System.out.println(trelloBoardDto.getName() + " - " + trelloBoardDto.getId());
-      System.out.println("This board contains lists: ");
-      trelloBoardDto.getLists().forEach(trelloList ->
-          System.out.println(trelloList.getName() + " - " + trelloList.getId() + " - " + trelloList.isClosed()));
-    });
+  public List<TrelloBoardDto> getTrelloBoards() {
+    return trelloClient.getTrelloBoards();
   }
 
   @PostMapping("card")
