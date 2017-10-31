@@ -34,7 +34,9 @@ public class TrelloClient {
 
   public List<TrelloBoardDto> getTrelloBoards() {
     try {
-      return ofNullable(restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class)).map(Arrays::asList).orElseGet(Collections::emptyList);
+      return ofNullable(restTemplate.getForObject(getTrelloBoardsUrl(), TrelloBoardDto[].class))
+          .map(Arrays::asList)
+          .orElseGet(Collections::emptyList);
     } catch (RestClientException e) {
       LOGGER.error(e.getMessage(), e);
           return new ArrayList<>();
