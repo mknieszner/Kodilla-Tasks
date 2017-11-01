@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * Email scheduler.
+ */
 @Component
 public class EmailScheduler {
   @Autowired
@@ -22,7 +25,7 @@ public class EmailScheduler {
 //  @Scheduled(cron = "0 0 10 * * *")
   @Scheduled(fixedDelay = 10000)
   public void sendInformationEmail() {
-    long size = taskRepository.count();
+    final long size = taskRepository.count();
     final StringBuilder message = new StringBuilder("Currently in your database you got: " + size + " task");
     if (size > 1) {
       message.append('s');
