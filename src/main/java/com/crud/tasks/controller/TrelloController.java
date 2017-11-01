@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Trello Controller.
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
