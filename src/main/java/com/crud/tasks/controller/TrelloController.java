@@ -22,15 +22,6 @@ public class TrelloController {
   @Autowired
   private TrelloService trelloClient;
 
-//  @GetMapping("boardsHeaders")
-//  public void printTrelloBoardsHeaders() {
-//    trelloClient
-//        .getTrelloBoards()
-//        .stream()
-//        .filter(trelloBoardDto -> StringUtils.isNotBlank(trelloBoardDto.getName()) && StringUtils.isNotBlank(trelloBoardDto.getId()))
-//        .filter(trelloBoardDto -> trelloBoardDto.getName().contains("Kodilla"))
-//        .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-//  }
 
   @GetMapping("boards")
   public List<TrelloBoardDto> getTrelloBoards() {
