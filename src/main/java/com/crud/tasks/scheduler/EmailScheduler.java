@@ -1,7 +1,8 @@
 package com.crud.tasks.scheduler;
 
 import com.crud.tasks.config.AdminConfig;
-import com.crud.tasks.domain.Mail;
+import com.crud.tasks.domain.mail.Mail;
+import com.crud.tasks.domain.mail.message.MessageGenerator;
 import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.service.SimpleEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,19 @@ public class EmailScheduler {
   private TaskRepository taskRepository;
   @Autowired
   private AdminConfig adminConfig;
+  @Autowired
+  MessageGenerator messageGenerator;
 
   private static final String SUBJECT = "Tasks: Once a day email";
 
   @Scheduled(cron = "0 0 10 * * *")
   public void sendInformationEmail() {
-    final long size = taskRepository.count();
-    final StringBuilder message = new StringBuilder("Currently in your database you got: " + size + " task");
-    if (size != 1) {
-      message.append('s');
-    }
+    final long taskQuantity = taskRepository.count();
+
     simpleEmailService.send(new Mail(
         adminConfig.getAdminMail(),
         SUBJECT,
-        message.toString())
+        messageGenerator.generateMessage(taskQuantity))
     );
   }
 }
