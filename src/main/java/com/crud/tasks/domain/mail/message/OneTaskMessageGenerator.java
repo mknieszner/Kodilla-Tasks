@@ -3,7 +3,7 @@ package com.crud.tasks.domain.mail.message;
 import org.springframework.stereotype.Component;
 
 /**
- * One Task Message Generator.
+ * One Task sub - message Generator.
  */
 @Component("oneTaskMessageGenerator")
 public class OneTaskMessageGenerator  implements TaskQtyBasedMessageGenerator {

@@ -1,7 +1,7 @@
 package com.crud.tasks.domain.mail.message;
 
 /**
- * Message Generator interface.
+ * Task Quantity Based Message Generator interface.
  */
 public interface TaskQtyBasedMessageGenerator {
   String getPartOfMessageBaseOnTaskQuantity(final Long taskQuantity);
