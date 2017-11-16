@@ -11,6 +11,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Validator for trello domain object.
+ */
 @Component
 public class TrelloValidator {
   private static final Logger LOGGER = LoggerFactory.getLogger(TrelloValidator.class);
@@ -25,11 +28,10 @@ public class TrelloValidator {
 
   public List<TrelloBoard> validateTrelloBoard(final List<TrelloBoard> trelloBoards) {
     LOGGER.info("Starting filtering boards... ");
-    List<TrelloBoard> filteredBoards = trelloBoards.stream()
+    final List<TrelloBoard> filteredBoards = trelloBoards.stream()
         .filter(trelloBoard -> trelloBoard.getName().equalsIgnoreCase("test"))
         .collect(toList());
     LOGGER.info("Boards has been filtered. Current list size: " + filteredBoards.size());
     return filteredBoards;
   }
-
 }

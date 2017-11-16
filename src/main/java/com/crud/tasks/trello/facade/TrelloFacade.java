@@ -13,6 +13,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Facade pattern for trello service.
+ */
 @Component
 public class TrelloFacade {
 
@@ -28,13 +31,13 @@ public class TrelloFacade {
   private TrelloValidator trelloValidator;
 
   public List<TrelloBoardDto> fetchTrelloBoards() {
-    List<TrelloBoard> trelloBoards =  trelloMapper.mapToBoards(trelloService.fetchTrelloBoards());
-    List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoard(trelloBoards);
+    final List<TrelloBoard> trelloBoards =  trelloMapper.mapToBoards(trelloService.fetchTrelloBoards());
+    final List<TrelloBoard> filteredBoards = trelloValidator.validateTrelloBoard(trelloBoards);
     return trelloMapper.mapToBoardsDto(filteredBoards);
   }
 
   public CreatedTrelloDto createCard(final TrelloCardDto trelloCardDto) {
-    TrelloCard trelloCard = trelloMapper.mapToCard(trelloCardDto);
+    final TrelloCard trelloCard = trelloMapper.mapToCard(trelloCardDto);
     trelloValidator.validateCard(trelloCard);
     return trelloService.createTrelloCard(trelloMapper.mapToCardDto(trelloCard));
   }

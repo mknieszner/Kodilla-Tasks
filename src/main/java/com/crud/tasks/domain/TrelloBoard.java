@@ -5,6 +5,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Represents Trello Board.
+ */
 @AllArgsConstructor
 @Getter
 public class TrelloBoard {

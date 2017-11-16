@@ -7,15 +7,18 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Mapper for Trello domain and trello dto objects.
+ */
 @Component
 public class TrelloMapper {
 
   public TrelloCardDto mapToCardDto(final TrelloCard trelloCard) {
-    return new TrelloCardDto(trelloCard.getName(),trelloCard.getDescription(),trelloCard.getPos(),trelloCard.getListId());
+    return new TrelloCardDto(trelloCard.getName(), trelloCard.getDescription(), trelloCard.getPos(), trelloCard.getListId());
   }
 
   public TrelloCard mapToCard(final TrelloCardDto trelloCardDto) {
-    return new TrelloCard(trelloCardDto.getName(),trelloCardDto.getDescription(),trelloCardDto.getPos(),trelloCardDto.getListId());
+    return new TrelloCard(trelloCardDto.getName(), trelloCardDto.getDescription(), trelloCardDto.getPos(), trelloCardDto.getListId());
   }
 
   public List<TrelloBoardDto> mapToBoardsDto(final List<TrelloBoard> trelloBoards) {
