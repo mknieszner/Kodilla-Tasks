@@ -55,7 +55,7 @@ public class TaskControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("\"title\":\"\",\"content\":\"\"}")));
   }
-//
+
 //  @Test
 //  public void getTaskTest() throws Exception {
 //    mockMvc.perform(
@@ -65,7 +65,7 @@ public class TaskControllerTest {
 //        .andExpect(content()
 //            .string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}")));
 //  }
-//
+
 //  @Test
 //  public void updateTaskTest() throws Exception {
 //    mockMvc.perform(put("/v1/tasks/2")
@@ -73,19 +73,19 @@ public class TaskControllerTest {
 //        .content(TestUtil.convertObjectToJsonBytes(new TaskDto((long) 2, "", ""))))
 //        .andDo(print()).andExpect(content().string(containsString("{\"id\":2,\"title\":\"\",\"content\":\"\"}"))).andExpect(status().isOk());
 //  }
-//
-//  @Test
-//  public void deleteTaskTest() throws Exception {
-//    //Given
-//    final Task toDeleteTask = taskRepository.save(new Task(null, "", ""));
-//
-//    //When Then
-//    mockMvc.perform(
-//        delete("/v1/tasks/" + toDeleteTask.getId()))
-//        .andDo(print())
-//        .andExpect(status().isOk());
-//  }
-//
+
+  @Test
+  public void deleteTaskTest() throws Exception {
+    //Given
+    final Task toDeleteTask = taskRepository.save(new Task(null, "", ""));
+
+    //When Then
+    mockMvc.perform(
+        delete("/v1/tasks/" + toDeleteTask.getId()))
+        .andDo(print())
+        .andExpect(status().isOk());
+  }
+
   @Test
   public void createTaskTest() throws Exception {
     mockMvc.perform(
@@ -95,13 +95,13 @@ public class TaskControllerTest {
         .andDo(print())
         .andExpect(status().isOk());
   }
-//
-//  @Test(expected = NestedServletException.class)
-//  public void taskNotFoundExceptionTest() throws Exception {
-//    mockMvc.perform(get("/v1/tasks/-1"));
-//
-//    // Exception should be thrown
-//  }
+
+  @Test(expected = NestedServletException.class)
+  public void taskNotFoundExceptionTest() throws Exception {
+    mockMvc.perform(get("/v1/tasks/-1"));
+
+    // Exception should be thrown
+  }
 
 private static class TestUtil {
   public static final MediaType APPLICATION_JSON_UTF8 =
