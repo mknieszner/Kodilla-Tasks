@@ -17,13 +17,9 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test Suite for Mappers.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class MapperTestSuite {
-  @Autowired
-  private TrelloMapper trelloMapper;
-  @Autowired
-  private TaskMapper taskMapper;
+  private TrelloMapper trelloMapper = new TrelloMapper();
+  private TaskMapper taskMapper = new TaskMapper();
 
   @Test
   public void mapToTaskTest() {
