@@ -27,7 +27,3 @@ nbdist/
 /.idea/
 /src/main/resources/application-heroku.properties
 /src/main/resources/application.properties
-src/main/resources/META-INF/
-src/main/resources/static/
-src/main/resources/templates/
-src/test/resources/
