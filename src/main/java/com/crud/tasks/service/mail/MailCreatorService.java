@@ -36,7 +36,7 @@ public class MailCreatorService implements EmailCreator {
 
     final Context context = new Context();
     context.setVariable("message", message);
-    context.setVariable("tasks_url", "http://localhost:8080/crud");
+    context.setVariable("tasks_url", "https://mknieszner.github.io");
     context.setVariable("button", "Visit website");
     context.setVariable("admin_name", adminConfig.getAdminName());
     context.setVariable("company_name", companyName);
