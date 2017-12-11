@@ -1,5 +1,8 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.domain.CreatedTrelloDto;
+import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.domain.mail.Mail;
 import com.crud.tasks.domain.mail.message.MessageGenerator;
 import org.junit.Test;
@@ -29,6 +32,8 @@ public class SimpleEmailServiceTest {
   private SimpleEmailService simpleEmailService;
   @Autowired
   MessageGenerator messageGenerator;
+  @Autowired
+  private MailCreatorService mailCreatorService;
 
   @Mock
   private JavaMailSender javaMailSender;
@@ -82,5 +87,19 @@ public class SimpleEmailServiceTest {
     //Then
     assertEquals("Currently in your database you got: 5 tasks", multipleTaskMessage);
     assertEquals("Currently in your database you got: 1 task", oneTaskMessage);
+  }
+
+
+
+  @Test
+  public void mailTemplateTest() throws Exception {
+    //Given
+     simpleEmailService.send(new Mail("mateusz.kodilla@gmail.com","Subject",mailCreatorService.buildTrelloCardEmail("message")));
+
+    //When
+
+
+    //Then
+
   }
 }
