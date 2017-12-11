@@ -33,4 +33,8 @@ public class DbService {
   public void deleteTask(final long taskId) {
     taskRepository.deleteById(taskId);
   }
+
+  public Long count() {
+   return taskRepository.count();
+  }
 }

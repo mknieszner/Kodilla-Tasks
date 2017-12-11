@@ -1,13 +1,15 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.mail.Mail;
-import org.apache.commons.lang.StringUtils;
+import com.crud.tasks.service.mail.EmailCreator;
+import com.crud.tasks.service.mail.MailCreatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -19,14 +21,16 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class SimpleEmailService {
 
   @Autowired
+  MailCreatorService mailCreatorService;
+
+  @Autowired
   private JavaMailSender javaMailSender;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SimpleEmailService.class);
 
-  public void send(final Mail mail) {
+  public void send(final Mail mail, final EmailCreator emailCreator) {
     try {
-      final SimpleMailMessage mailMessage = createMailMessage(mail);
-      javaMailSender.send(mailMessage);
+      javaMailSender.send(createMimeMessage(mail, emailCreator));
 
       LOGGER.info("Email has been sent");
 
@@ -35,15 +39,23 @@ public class SimpleEmailService {
     }
   }
 
-  private SimpleMailMessage createMailMessage(final Mail mail) {
-    final SimpleMailMessage mailMessage = new SimpleMailMessage();
-    mailMessage.setTo(mail.getMailTo());
-    mailMessage.setSubject(mail.getSubject());
-    mailMessage.setText(mail.getMessage());
-    if (StringUtils.isNotBlank(mail.getToCc())) {
-      mailMessage.setCc(mail.getToCc());
-    }
-    return mailMessage;
-  }
+//  private SimpleMailMessage createMailMessage(final Mail mail) {
+//    final SimpleMailMessage mailMessage = new SimpleMailMessage();
+//    mailMessage.setTo(mail.getMailTo());
+//    mailMessage.setSubject(mail.getSubject());
+//    mailMessage.setText(mail.getMessage());
+//    if (StringUtils.isNotBlank(mail.getToCc())) {
+//      mailMessage.setCc(mail.getToCc());
+//    }
+//    return mailMessage;
+//  }
 
+  public MimeMessagePreparator createMimeMessage(final Mail mail, final EmailCreator emailCreator) {
+    return mimeMessage -> {
+      final MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+      mimeMessageHelper.setTo(mail.getMailTo());
+      mimeMessageHelper.setSubject(mail.getSubject());
+      mimeMessageHelper.setText(emailCreator.buildEmail(mail.getMessage()), true);
+    };
+  }
 }
