@@ -12,14 +12,14 @@ import java.lang.System.*;
  * SpringBoot main class.
  */
 @SpringBootApplication
-public class TasksApplication extends SpringBootServletInitializer {
-//public class TasksApplication {
+//public class TasksApplication extends SpringBootServletInitializer {
+public class TasksApplication {
   public static void main(final String[] args) {
     SpringApplication.run(TasksApplication.class, args);
   }
 
-  @Override
-  protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
-    return application.sources(TasksApplication.class);
-  }
+//  @Override
+//  protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
+//    return application.sources(TasksApplication.class);
+//  }
 }
