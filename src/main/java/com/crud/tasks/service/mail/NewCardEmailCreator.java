@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mail Creator Service.
+ * New Card Email Creator.
  */
 @Service
-public class MailCreatorService implements EmailCreator {
+public class NewCardEmailCreator implements EmailCreator {
   @Autowired
   private AdminConfig adminConfig;
   @Autowired
@@ -41,7 +41,7 @@ public class MailCreatorService implements EmailCreator {
     context.setVariable("admin_name", adminConfig.getAdminName());
     context.setVariable("company_name", companyName);
     context.setVariable("bye_message", "Bye!");
-    context.setVariable("show_button", false);
+    context.setVariable("show_button", true);
     context.setVariable("is_friend", true);
     context.setVariable("application_functionality", functionality);
     return templateEngine.process("mail/created-trello-card-mail", context);

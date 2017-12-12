@@ -2,7 +2,7 @@ package com.crud.tasks.service;
 
 import com.crud.tasks.domain.mail.Mail;
 import com.crud.tasks.service.mail.EmailCreator;
-import com.crud.tasks.service.mail.MailCreatorService;
+import com.crud.tasks.service.mail.NewCardEmailCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class SimpleEmailService {
 
   @Autowired
-  MailCreatorService mailCreatorService;
+  NewCardEmailCreator newCardEmailCreator;
 
   @Autowired
   private JavaMailSender javaMailSender;

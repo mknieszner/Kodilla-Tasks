@@ -16,7 +16,6 @@ import org.thymeleaf.context.Context;
  */
 @Service
 public class TasksInfoEmailCreator implements EmailCreator {
-
   @Autowired
   private AdminConfig adminConfig;
   @Autowired
