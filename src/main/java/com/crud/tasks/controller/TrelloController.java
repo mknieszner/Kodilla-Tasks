@@ -17,10 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
-
-//  @Autowired
-//  private TrelloService trelloClient;
-
   @Autowired
   private TrelloFacade trelloFacade;
 

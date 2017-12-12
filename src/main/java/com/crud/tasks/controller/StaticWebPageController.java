@@ -22,9 +22,6 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @Controller
 public class StaticWebPageController {
-  @Autowired
-  private DbService dbService;
-
   @RequestMapping("/")
   public String index(final Map<String, Object> model) {
     model.put("variable", "My Thymeleaf variable");
@@ -33,41 +30,4 @@ public class StaticWebPageController {
     model.put("three", 2);
     return "index";
   }
-
-  @Autowired
-  private AdminConfig adminConfig;
-  @Value("${info.company.name}")
-  private String companyName;
-
-//  @RequestMapping("/testMail")
-// public String testMailTemplate(final Map<String, Object> model) {
-//    List<String> functionality = new ArrayList<>();
-//    functionality.add("You can range your tasks");
-//    functionality.add("Provides connection with Trello Account");
-//    functionality.add("Application allows sending tasks to Trello");
-//
-//    model.put("message", "Test message");
-//    model.put("tasks_url", "http://localhost:8080/crud");
-//    model.put("button", "Visit website");
-//    model.put("admin_name", adminConfig.getAdminName());
-//    model.put("company_name", companyName);
-//    model.put("bye_message", "Bye!");
-//    model.put("show_button", true);
-//    model.put("is_friend", true);
-//    model.put("application_functionality",functionality);
-//    return "mail/created-trello-card-mail";
-//  }
-//
-//  @RequestMapping("/testMail2")
-//  public String tasksQtyInformationEmail(final Map<String, Object> model) {
-//    model.put("task_count", dbService.count().toString());
-//    model.put("tasks_url","http://localhost:8080/crud");
-//    model.put("button","Visit website");
-//    model.put("admin_name", adminConfig.getAdminName());
-//    model.put("company_name",companyName);
-//    model.put("bye_message","Bye!");
-//    model.put("show_button",true);
-//    model.put("is_friend", true);
-//    return "mail/tasks-qty-information";
-//  }
 }

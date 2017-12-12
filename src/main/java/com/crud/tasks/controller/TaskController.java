@@ -51,9 +51,4 @@ public class TaskController {
   public void createTask(@RequestBody final TaskDto taskDto) {
     dbService.saveTask(taskMapper.mapToTask(taskDto));
   }
-
-  @RequestMapping("test")
-  public String connetionTest() {
-    return "Connected";
-  }
 }
