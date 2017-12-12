@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.util.Date;
+
 /**
  * Tasks Info Email Creator.
  */
@@ -28,6 +30,7 @@ public class TasksInfoEmailCreator implements EmailCreator {
 
   public String buildEmail(final String message) {
     final Context context = new Context();
+    context.setVariable("pre_header", "DAILY: " + new Date() + " INFO ");
     context.setVariable("task_count", dbService.count());
     context.setVariable("tasks_url", "https://mknieszner.github.io");
     context.setVariable("button", "Visit website");

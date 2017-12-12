@@ -35,6 +35,7 @@ public class NewCardEmailCreator implements EmailCreator {
     functionality.add("Application allows sending tasks to Trello");
 
     final Context context = new Context();
+    context.setVariable("pre_header", "NEW TRELLO CARD!");
     context.setVariable("message", message);
     context.setVariable("tasks_url", "https://mknieszner.github.io");
     context.setVariable("button", "Visit website");
